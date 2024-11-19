@@ -28,6 +28,10 @@ Core Features
 4. Navigate to http://127.0.0.1:8000/docs to explore the endpoints. Currently Bluetooth_Log and Get_Location are full working.
 5. There is a tremendous amount of implemented functionality inside - take a look as automated device tracking, and further RSSI based analysis is done but is purposefully left out of this readme as a bar of entry. Enjoy.
 
+# Git Cli 
+You can use the following to clone this repo:
+<code>
+gh repo clone blakdayz/swivel</code>
 
 
 ## Getting Started #getting-started 
