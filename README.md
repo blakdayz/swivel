@@ -6,6 +6,60 @@ This framework is designed to provide a common bus interface for automated Bluet
 
 If you are looking for a easy bypass for location services, we self authorize under the signed binary for python, giving a smooth integration of GPS services in pure cython code that basically is reversed against the objc-framework implementation and protobuffed by pybobj framework direct class - including unreferenceable calls I dervied from the Apple source code. You can checkout how it all works by seeing that modules README in <code>location/README.md</code>
 
+Example of the Auto-Analysis detecting devices following a user. You can see the automatic detection of 2 devices being relocated between two locations. In order to use the tool, its important to remember to test this and identify which devices are yours, as not all devices that follow you are someone elses :D
+
+```python
+2024-11-19 11:35:08,519 - INFO - Recorded 'Seen' entry for device 5DCA914C-E9FB-36C4-D419-488D86C69C7A at place 2
+2024-11-19 11:35:08,521 - INFO - Discovered 17 devices.
+2024-11-19 11:35:08,521 - INFO - New devices: 1, Devices in same place: 14, Relocated devices: 2, Total relocations: 2
+2024-11-19 11:35:13,522 - INFO - Scanning for Bluetooth devices...
+2024-11-19 11:35:18,597 - INFO - Recorded 'Seen' entry for device E31FF575-7D36-5D97-1BCE-F379B9C48127 at place 2
+2024-11-19 11:35:18,613 - INFO - Recorded 'Seen' entry for device 76F2AA67-727E-5038-297F-2DE80EED4017 at place 2
+2024-11-19 11:35:18,628 - INFO - Recorded 'Seen' entry for device 18732D8D-F895-0DBC-4C13-D7E95D1F2C3B at place 2
+2024-11-19 11:35:18,640 - INFO - Device 92246D5E-34C6-797B-4623-2B250F3C35AA added to place Unnamed Place.
+2024-11-19 11:35:18,642 - INFO - Updating device relocation: 92246D5E-34C6-797B-4623-2B250F3C35AA
+2024-11-19 11:35:18,643 - INFO - Device 92246D5E-34C6-797B-4623-2B250F3C35AA relocated from None, None to None to [redacted], -[redacted gps]
+2024-11-19 11:35:18,644 - INFO - Recorded 'Seen' entry for device 92246D5E-34C6-797B-4623-2B250F3C35AA at place 2
+2024-11-19 11:35:18,659 - INFO - Recorded 'Seen' entry for device 5D8748B2-AE5A-DD49-36F6-ED9DBEC7387A at place 2
+2024-11-19 11:35:18,674 - INFO - Recorded 'Seen' entry for device D5C608B6-69BB-859C-6A73-F971D098FB7E at place 2
+2024-11-19 11:35:18,689 - INFO - Recorded 'Seen' entry for device DAB5450B-4CBB-7877-8E84-39111E8F341D at place 2
+2024-11-19 11:35:18,704 - INFO - Recorded 'Seen' entry for device 008787A8-37B6-F924-904B-63E022DAE0C1 at place 2
+2024-11-19 11:35:18,720 - INFO - Recorded 'Seen' entry for device 1649E549-82BF-8798-FA25-74411D0D08DA at place 2
+2024-11-19 11:35:18,736 - INFO - Recorded 'Seen' entry for device E90D940D-FEB2-34E4-D4F6-CDB122477AF2 at place 2
+2024-11-19 11:35:18,752 - INFO - Recorded 'Seen' entry for device 03B32175-1859-0B00-DBB6-5966947F905F at place 2
+2024-11-19 11:35:18,767 - INFO - Recorded 'Seen' entry for device 7D1E18FE-7585-42C3-C4DC-E28F55943312 at place 2
+2024-11-19 11:35:18,783 - INFO - Recorded 'Seen' entry for device 4DE15A79-1225-4DE5-11F3-53203AA4DE80 at place 2
+2024-11-19 11:35:18,798 - INFO - Recorded 'Seen' entry for device 424D4A0B-3848-A4AE-0B89-21F4670A5AD4 at place 2
+2024-11-19 11:35:18,813 - INFO - Recorded 'Seen' entry for device 46F63AB5-47F6-6BA3-64AC-C5638E09D103 at place 2
+2024-11-19 11:35:18,828 - INFO - Recorded 'Seen' entry for device 73451563-3289-76BB-1C5D-85FCE8DA0F0F at place 2
+2024-11-19 11:35:18,844 - INFO - Recorded 'Seen' entry for device D80FB623-33F5-4BD6-3D5D-C6D34C3CE481 at place 2
+2024-11-19 11:35:18,856 - INFO - Device 0B878559-C228-CCCD-1AC8-4125D48473EB added to place Unnamed Place.
+2024-11-19 11:35:18,858 - INFO - Updating device relocation: 0B878559-C228-CCCD-1AC8-4125D48473EB
+2024-11-19 11:35:18,860 - INFO - Device 0B878559-C228-CCCD-1AC8-4125D48473EB relocated from None, None to [redacted], -[redacted gps]
+2024-11-19 11:35:18,860 - INFO - Recorded 'Seen' entry for device 0B878559-C228-CCCD-1AC8-4125D48473EB at place 2
+2024-11-19 11:35:18,862 - INFO - Discovered 18 devices.
+2024-11-19 11:35:18,862 - INFO - New devices: 0, Devices in same place: 16, Relocated devices: 2, Total relocations: 2
+2024-11-19 11:35:23,863 - INFO - Scanning for Bluetooth devices...
+2024-11-19 11:35:28,955 - INFO - Recorded 'Seen' entry for device E90D940D-FEB2-34E4-D4F6-CDB122477AF2 at place 2
+2024-11-19 11:35:28,974 - INFO - Recorded 'Seen' entry for device DAB5450B-4CBB-7877-8E84-39111E8F341D at place 2
+2024-11-19 11:35:28,995 - INFO - Recorded 'Seen' entry for device D5C608B6-69BB-859C-6A73-F971D098FB7E at place 2
+2024-11-19 11:35:29,013 - INFO - Recorded 'Seen' entry for device 4DE15A79-1225-4DE5-11F3-53203AA4DE80 at place 2
+2024-11-19 11:35:29,030 - INFO - Recorded 'Seen' entry for device 76F2AA67-727E-5038-297F-2DE80EED4017 at place 2
+2024-11-19 11:35:29,054 - INFO - Recorded 'Seen' entry for device 008787A8-37B6-F924-904B-63E022DAE0C1 at place 2
+2024-11-19 11:35:29,074 - INFO - Recorded 'Seen' entry for device E31FF575-7D36-5D97-1BCE-F379B9C48127 at place 2
+2024-11-19 11:35:29,090 - INFO - Recorded 'Seen' entry for device 5D8748B2-AE5A-DD49-36F6-ED9DBEC7387A at place 2
+2024-11-19 11:35:29,109 - INFO - Recorded 'Seen' entry for device BBE68BCF-342D-4FF0-88B6-E8A6715A5DD3 at place 2
+2024-11-19 11:35:29,125 - INFO - Recorded 'Seen' entry for device 18732D8D-F895-0DBC-4C13-D7E95D1F2C3B at place 2
+2024-11-19 11:35:29,143 - INFO - Recorded 'Seen' entry for device D80FB623-33F5-4BD6-3D5D-C6D34C3CE481 at place 2
+2024-11-19 11:35:29,159 - INFO - Recorded 'Seen' entry for device 03B32175-1859-0B00-DBB6-5966947F905F at place 2
+2024-11-19 11:35:29,176 - INFO - Recorded 'Seen' entry for device 46F63AB5-47F6-6BA3-64AC-C5638E09D103 at place 2
+2024-11-19 11:35:29,193 - INFO - Recorded 'Seen' entry for device 82CEC3A7-3FA5-46C5-61F6-C7FCC342588F at place 2
+2024-11-19 11:35:29,210 - INFO - Recorded 'Seen' entry for device 7D1E18FE-7585-42C3-C4DC-E28F55943312 at place 2
+2024-11-19 11:35:29,226 - INFO - Recorded 'Seen' entry for device 92246D5E-34C6-797B-4623-2B250F3C35AA at place 2
+2024-11-19 11:35:29,243 - INFO - Recorded 'Seen' entry for device 424D4A0B-3848-A4AE-0B89-21F4670A5AD4 at place 2
+2024-11-19 11:35:29,246 - INFO - Discovered 17 devices.
+2024-11-19 11:35:29,246 - INFO - New devices: 0, Devices in same place: 17, Relocated devices: 0, Total relocations: 0
+```
 
 Core Features
 
