@@ -50,15 +50,15 @@ participant BLEScanner
 participant Database
 
 BLEScanner->>Database: Fetch all places with related data eagerly loaded
-Note over Database: processes places and their devices
-Database-->>BLEScanner: places
+Database-->>BLEScanner: Return places with devices
 
-for each place in places do:
-    BLEScanner->>place: iterate through devices seen at this place
-    for each device in devices do:
-        BLEScanner->>device: log information about the device
+loop for each place in places
+    BLEScanner->>place: Iterate through devices seen at this place
+    loop for each device in devices
+        BLEScanner->>device: Log information about the device
     end
 end
+
 ```
 
 2. `report_devices_seen_in_multiple_places()` - Generates a report of devices that have been seen at multiple different locations.
@@ -68,14 +68,13 @@ sequenceDiagram
 participant BLEScanner
 participant Database
 
-BLEScanner->>Database: Fetch devices seen in more than one place
-Note over Database: processes places and their devices
-Database-->>BLEScanner: devices
+BLEScanner->>Database: Fetch all places with related data eagerly loaded
+Database-->>BLEScanner: Return places with devices
 
-for each device in devices do:
-    BLEScanner->>device: iterate through places where the device has been seen
-    for each place in places do:
-        BLEScanner->>place: log information about the place and device sighting
+loop for each place in places
+    BLEScanner->>place: Iterate through devices seen at this place
+    loop for each device in devices
+        BLEScanner->>device: Log information about the device
     end
 end
 ```
@@ -87,14 +86,13 @@ sequenceDiagram
 participant BLEScanner
 participant Database
 
-BLEScanner->>Database: Fetch Seen records with matching GATT signatures seen at multiple places
-Note over Database: organizes seen records by GATT signature and filters distinct places
-Database-->>BLEScanner: seen_records grouped by GATT signature
+BLEScanner->>Database: Fetch devices seen in more than one place
+Database-->>BLEScanner: Return devices with associated places
 
-for each GATT signature in seen_records do:
-    BLEScanner->>seen_records[GATT signature]: iterate through records for this GATT signature
-    for each record in seen_records[GATT signature] do:
-        BLEScanner->>device: log information about the device and sighting
+loop for each device in devices
+    BLEScanner->>device: Iterate through places where the device has been seen
+    loop for each place in places
+        BLEScanner->>place: Log information about the place and device sighting
     end
 end
 ```
