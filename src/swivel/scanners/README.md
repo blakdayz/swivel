@@ -1,6 +1,7 @@
-# Scanners Readme 
+# SWIVEL Scanners Readme 
 ## Description
- To update the sequence diagram with the added reporting methods that perform device-to-place analysis, we can modify the existing diagram by adding new interaction steps as follows:
+
+This SWIVEL module performs Bluetooth Low Energy Device Detection, GATT Stack Signature Generation, Tracking, and Analysis
 
 1. The `run_scanner()` command is called from the CLI, starting the BLE scanner application.
 2. The application creates instances of `LocationManager`, `EventBus`, and `BLEScanner`.
