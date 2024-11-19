@@ -1,3 +1,6 @@
+# SWIVEL LocationManager Readme
+## A direct calling, asynchronous self authorizing, no prompting script to get the location from CoreLocation
+
 Utilizes the MacOS CoreLocation API to manage and retrieve the user's current location, heading, and other related geolocation data. This script is a part of a larger project named Swivel, and it leverages Objective-C bindings for interacting with Core Location services.
 
 Here's a brief walkthrough of the code:
