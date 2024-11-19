@@ -15,7 +15,7 @@ sequenceDiagram
         Manager->>CLM: Start updating location
         CLM->>Manager: Location update
         Manager->>User: Log location information
-    alt Authorization status is Denied, Restricted or timeout exceeded
+    else Authorization status is Denied, Restricted or timeout exceeded
         Manager->>User: Handle authorization denial or timeout
     end
     User->>Manager: Link device to place
@@ -26,8 +26,7 @@ sequenceDiagram
     alt Existing place selection
         Manager->>PS: Get selected place
         Manager->>DS: Create device record with place ID
-    end
-    alt Manual input
+    else Manual input
         Manager->>PS: Create new place with user input
         Manager->>DS: Create device record with new place ID
     end
