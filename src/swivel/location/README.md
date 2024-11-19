@@ -1,5 +1,5 @@
 UML (Unified Modeling Language) process diagram that represents the workflow of the provided `LocationManager` class:
-```plantuml
+```mermaid
 sequenceDiagram
     participant User
     participant LocationManager as Manager
