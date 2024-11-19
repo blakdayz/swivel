@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "swivel"
+version = "0.1.0"
+description = ""
+authors = ["derek.hinch <derek.hinch@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.5"
+uvicorn = "^0.32.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
