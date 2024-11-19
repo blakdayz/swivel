@@ -6,8 +6,8 @@ This framework is designed to provide a common bus interface for automated Bluet
 
 * [Getting Started](#getting-started)
 * [Documentation](#documentation)
-* [Community Support](#community-support))
-* [License](#license))
+* [Community Support](#community-support)
+* [License](#license)
 
 ## How to Use 
 
@@ -19,7 +19,7 @@ This framework is designed to provide a common bus interface for automated Bluet
 
 
 
-## Getting Started
+## Getting Started #getting-started 
 To get started developing locally with the SWIVEL Framework
 
 1. Run <code> git clone https://github.com/blakdayz/swivel && cd ./swivel </code>
