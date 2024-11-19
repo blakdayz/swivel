@@ -2,6 +2,8 @@
 
 This framework is designed to provide a common bus interface for automated Bluetooth Low Energy, Wireless, and GPS Signals Collection and Analysis for advanced counter surveillance operations. Counter MAC randomization measures using GATT Signatures helps identify devices which attempt to avoid such surveillance by editing their radio identifiers but exposing the same system GATT stack information.
 
+If you are looking for a easy bypass for location services, we self authorize under the signed binary for python, giving a smooth integration of GPS services in pure cython code that basically is reversed against the objc-framework implementation and protobuffed by pybobj framework direct class - including unreferenceable calls I dervied from the Apple source code. 
+
 Core Features
 
 - **S**canning: Utilizes the BLEScanner class to scan for BLE devices, which serves as the first step in understanding the environment around the system
@@ -24,7 +26,7 @@ Core Features
 2. Open terminal to the project location root and run <code>chmod +x ./first_run.sh && ./first_run.sh</code>
 3. After wards, running <code>start_service.sh</code> will launch the scanners and web services.
 4. Navigate to http://127.0.0.1:8000/docs to explore the endpoints. Currently Bluetooth_Log and Get_Location are full working.
-5. There is a tremenmdous amount of implemented functionality inside - take a look as automated device tracking, and further RSSI based analysis is done but is purposefully left out of this readme as a bar of entry. Enjoy.
+5. There is a tremendous amount of implemented functionality inside - take a look as automated device tracking, and further RSSI based analysis is done but is purposefully left out of this readme as a bar of entry. Enjoy.
 
 
 
