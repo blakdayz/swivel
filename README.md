@@ -1,4 +1,6 @@
-# S.W.I.V.E.L. Counter Surveillance Framework for Mac 
+# S.W.I.V.E.L. (Scan, Watch, Identify, Validate, Evaluate, Link) 
+
+## Counter Surveillance Framework for Mac 
 
 This framework is designed to provide a common bus interface for automated Bluetooth Low Energy, Wireless, and GPS Signals Collection and Analysis for advanced counter surveillance operations. Counter MAC randomization measures using GATT Signatures helps identify devices which attempt to avoid such surveillance by editing their radio identifiers but exposing the same system GATT stack information.
 
@@ -45,9 +47,11 @@ To get started developing locally with the SWIVEL Framework
 
 ### Notes:
 
-1. Permissions Setup (MacOS Sequoia 15.1) is required first for this to work. 
+1. Permissions Setup (MacOS Sequoia 15.1) is required first for this to work.
+   <img width="492" alt="Location Permissions Required for MacOS 14, 15.x" src="https://github.com/user-attachments/assets/567419fb-8eba-43c2-872b-43e19146eea1">
 
-2. You can run "python src/swivel/scanners/ble_scanner.py --help" from the project root directory to see more options regarding database management and place and location managment. The event bus is operational, and subscriber usage is described in the respective classes.
+
+3. You can run "python src/swivel/scanners/ble_scanner.py --help" from the project root directory to see more options regarding database management and place and location managment. The event bus is operational, and subscriber usage is described in the respective classes.
 
 ## License (GNU GPL 3.0)
 
