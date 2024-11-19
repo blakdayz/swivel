@@ -1,3 +1,19 @@
+Utilizes the MacOS CoreLocation API to manage and retrieve the user's current location, heading, and other related geolocation data. This script is a part of a larger project named Swivel, and it leverages Objective-C bindings for interacting with Core Location services.
+
+Here's a brief walkthrough of the code:
+
+Import necessary Python libraries (time, asyncio, objc, logging) as well as CoreLocation modules from a hypothetical CoreLocation package and Foundation modules from the Foundation module.
+
+Define a LocationManagerDelegate class that acts as a delegate for handling location updates. This class is an NSObject subclass that implements methods to handle location, heading updates, and changes in authorization status.
+
+Create the main LocationManager class which manages location services and integrates with device-place mapping. It initializes a CLLocationManager object, sets up its delegate as the previously defined LocationManagerDelegate instance, and creates PlaceService and DeviceService objects to manage places and devices respectively. The LocationManager class has several methods for requesting authorization, checking if location services are enabled, retrieving the current location (with a timeout), linking a device to a place based on GPS or manual input, starting region monitoring, stopping region monitoring, starting beacon ranging, stopping beacon ranging, starting heading updates, stopping heading updates, and retrieving the current heading.
+
+Define an async_get_location method within the LocationManager class which is an asynchronous version of the get_current_location method. This method uses asyncio's event loop to run the get_current_location function concurrently.
+
+Implement a prompt_for_place function that prompts the user to create or select an existing place if GPS data is unavailable.
+
+Finally, the script initializes an EventBus object and a LocationManager instance with the created event bus, requests authorization for location services, retrieves the current location using the get_current_location method (or the async_get_location method in an asynchronous context), and prints the latitude and longitude values.
+
 UML (Unified Modeling Language) process diagram that represents the workflow of the provided `LocationManager` class:
 ```mermaid
 sequenceDiagram
