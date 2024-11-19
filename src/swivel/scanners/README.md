@@ -46,53 +46,111 @@ The `BLEScanner` is responsible for scanning and managing devices during the sca
 
 ```mermaid
 sequenceDiagram
-participant BLEScanner
-participant Database
+    participant ReportGenerator
+    participant AsyncSessionLocal
+    participant Database
+    participant Place
+    participant PlaceDevice
+    participant Device
+    participant Seen
 
-BLEScanner->>Database: Fetch all places with related data eagerly loaded
-Database-->>BLEScanner: Return places with devices
+    ReportGenerator->>AsyncSessionLocal: Start async session
+    AsyncSessionLocal->>Database: Execute query to fetch places and related data
+    Database-->>AsyncSessionLocal: Return places with devices and seen records
 
-loop for each place in places
-    BLEScanner->>place: Iterate through devices seen at this place
-    loop for each device in devices
-        BLEScanner->>device: Log information about the device
+    AsyncSessionLocal->>ReportGenerator: Return places
+
+    Note over ReportGenerator: Log places and devices seen at each place
+    ReportGenerator->>Place: Retrieve place details
+    Place-->>ReportGenerator: Return place details
+    ReportGenerator->>PlaceDevice: Retrieve devices associated with the place
+    PlaceDevice-->>ReportGenerator: Return PlaceDevice instances
+    ReportGenerator->>Device: Retrieve device details
+    Device-->>ReportGenerator: Return device details
+    ReportGenerator->>Device: Retrieve seen records for the device
+    Device-->>ReportGenerator: Return seen records
+    ReportGenerator->>Seen: Retrieve seen record details for each device at each place
+    Seen-->>ReportGenerator: Return seen record details
+
+    ReportGenerator->>ReportGenerator: Log place and device information
+    ReportGenerator->>ReportGenerator: Log times seen, timestamp, RSSI, and GATT signature
+
+    alt Error during process
+        ReportGenerator->>ReportGenerator: Log error message
     end
-end
-
 ```
 
 2. `report_devices_seen_in_multiple_places()` - Generates a report of devices that have been seen at multiple different locations.
 
 ```mermaid
 sequenceDiagram
-participant BLEScanner
-participant Database
+    participant BLEScanner
+    participant AsyncSessionLocal
+    participant Database
+    participant Device
+    participant PlaceDevice
+    participant Place
 
-BLEScanner->>Database: Fetch all places with related data eagerly loaded
-Database-->>BLEScanner: Return places with devices
+    BLEScanner->>AsyncSessionLocal: Start async session
+    AsyncSessionLocal->>Database: Execute subquery to find devices seen in multiple places
+    Database-->>AsyncSessionLocal: Return device IDs
+    AsyncSessionLocal->>Database: Execute main query to fetch devices with matching IDs
+    Database-->>AsyncSessionLocal: Return Device records
 
-loop for each place in places
-    BLEScanner->>place: Iterate through devices seen at this place
-    loop for each device in devices
-        BLEScanner->>device: Log information about the device
+    AsyncSessionLocal->>BLEScanner: Return devices
+
+    Note over BLEScanner: Log devices and places seen at multiple locations
+    BLEScanner->>Device: Retrieve device details for each seen record
+    Device-->>BLEScanner: Return device details
+    BLEScanner->>PlaceDevice: Retrieve associated places for each device
+    PlaceDevice-->>BLEScanner: Return place details
+    BLEScanner->>Place: Retrieve place details
+    Place-->>BLEScanner: Return place details
+
+    BLEScanner->>BLEScanner: Log device and place information
+
+    alt No devices seen in multiple places
+        BLEScanner->>BLEScanner: Log "No devices have been seen at multiple locations."
     end
-end
+
+    alt Error during process
+        BLEScanner->>BLEScanner: Log error message
+    end
+
 ```
 
 3. `report_devices_seen_in_multiple_places_with_gatt_check()` - Generates a report of devices that have been seen at multiple different locations, considering devices with matching GATT signatures as potentially the same device despite MAC address randomization.
 
 ```mermaid
 sequenceDiagram
-participant BLEScanner
-participant Database
+    participant BLEScanner
+    participant AsyncSessionLocal
+    participant Database
+    participant Seen
+    participant Device
+    participant Place
 
-BLEScanner->>Database: Fetch devices seen in more than one place
-Database-->>BLEScanner: Return devices with associated places
+    BLEScanner->>AsyncSessionLocal: Start async session
+    AsyncSessionLocal->>Database: Execute subquery to find GATT signatures in multiple places
+    Database-->>AsyncSessionLocal: Return GATT signatures
+    AsyncSessionLocal->>Database: Execute main query to fetch Seen records with matching GATT signatures
+    Database-->>AsyncSessionLocal: Return Seen records with GATT signatures
+    AsyncSessionLocal->>BLEScanner: Return seen records
 
-loop for each device in devices
-    BLEScanner->>device: Iterate through places where the device has been seen
-    loop for each place in places
-        BLEScanner->>place: Log information about the place and device sighting
+    Note over BLEScanner: Group seen records by GATT signature
+    BLEScanner->>BLEScanner: Organize seen records by GATT signature
+    Note over BLEScanner: Log devices and places seen at multiple locations
+    BLEScanner->>Device: Retrieve device details for each seen record
+    Device-->>BLEScanner: Return device details
+    BLEScanner->>Place: Retrieve place details for each seen record
+    Place-->>BLEScanner: Return place details
+    BLEScanner->>BLEScanner: Log device and place information
+
+    alt No records with matching GATT signatures
+        BLEScanner->>BLEScanner: Log "No devices with matching GATT signatures"
     end
-end
+
+    alt Error during process
+        BLEScanner->>BLEScanner: Log error message
+    end
 ```
