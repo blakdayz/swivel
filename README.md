@@ -37,7 +37,7 @@ gh repo clone blakdayz/swivel</code>
 ## Getting Started #getting-started 
 To get started developing locally with the SWIVEL Framework
 
-1. Run <code> git clone https://github.com/blakdayz/swivel && cd ./swivel </code>
+1. Run <code> git clone https://github.com/blakdayz/swivel.git && cd ./swivel </code>
 2. Run <code> pip install poetry </code> in terminal
 3. Run <code> poetry install </code> in terminal
 
