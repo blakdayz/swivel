@@ -2,7 +2,8 @@
 
 This framework is designed to provide a common bus interface for automated Bluetooth Low Energy, Wireless, and GPS Signals Collection and Analysis for advanced counter surveillance operations. Counter MAC randomization measures using GATT Signatures helps identify devices which attempt to avoid such surveillance by editing their radio identifiers but exposing the same system GATT stack information.
 
-If you are looking for a easy bypass for location services, we self authorize under the signed binary for python, giving a smooth integration of GPS services in pure cython code that basically is reversed against the objc-framework implementation and protobuffed by pybobj framework direct class - including unreferenceable calls I dervied from the Apple source code. 
+If you are looking for a easy bypass for location services, we self authorize under the signed binary for python, giving a smooth integration of GPS services in pure cython code that basically is reversed against the objc-framework implementation and protobuffed by pybobj framework direct class - including unreferenceable calls I dervied from the Apple source code. You can checkout how it all works by seeing that modules README in <code>location/README.md</code>
+
 
 Core Features
 
