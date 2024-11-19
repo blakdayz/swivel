@@ -26,7 +26,6 @@ class LocationSubscriber:
         )
 
 
-
 class WifiSubscriber:
     """
     Class representing a WiFi subscriber that listens for updates on WiFi networks.

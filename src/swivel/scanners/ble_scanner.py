@@ -13,7 +13,14 @@ from bleak import BleakScanner
 from sqlalchemy import select, func, distinct, text
 from sqlalchemy.orm import selectinload
 
-from swivel.database.ble_dto import Device, Relocation, Place, PlaceDevice, Seen, Base
+from swivel.database.ble_dto import (
+    Device,
+    Relocation,
+    Place,
+    PlaceDevice,
+    Seen,
+    Base,
+)
 from swivel.database.datastorage_json import AsyncSessionLocal, async_engine
 from swivel.events.event_subsystem import EventBus
 
@@ -277,9 +284,10 @@ class BLEScanner:
         :return: GeoData
         """
         if datetime.utcnow() - self.last_gps_fetch > timedelta(minutes=1):
-            lat, lon = (
-                self.location_manager.get_current_location()
-            )  # Removed 'await'
+            (
+                lat,
+                lon,
+            ) = self.location_manager.get_current_location()  # Removed 'await'
             self.cached_geodata = GeoData(latitude=lat, longitude=lon)
             self.last_gps_fetch = datetime.utcnow()
         return self.cached_geodata

@@ -69,7 +69,6 @@ class DeviceService:
 
 
 if __name__ == "__main__":
-
     device_service = DeviceService()
     device_service.create_device(
         name="DUMMY DEVICE", address="192.168.1.1", place_id=1
