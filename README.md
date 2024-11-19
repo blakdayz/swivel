@@ -2,6 +2,15 @@
 
 This framework is designed to provide a common bus interface for automated Bluetooth Low Energy, Wireless, and GPS Signals Collection and Analysis for advanced counter surveillance operations. 
 
+Core Features
+
+Scanning: Utilizes the BLEScanner class to scan for BLE devices, which serves as the first step in counter intelligence.
+Watching: Employs the LocationManager class to watch and update locations of BLE devices.
+Identifying: Uses the EventBus class to identify and respond to events related to BLE devices, such as when a device is found or a location update occurs.
+Verifying: Includes the PlaceService and DeviceService classes to verify the accuracy of location data.
+Evaluating: Employs the WiFiService class to evaluate the presence of nearby Wi-Fi networks and provides methods to list available networks.
+Linking: Links device information to location data, creating a comprehensive picture of device behavior and movement.
+
 ## Contents
 
 * [Getting Started](#getting-started)
