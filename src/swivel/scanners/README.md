@@ -25,19 +25,18 @@ CLI->>BLEScanner: initialize(LocationManager, EventBus)
 Note over BLEScanner, LocationManager: LocationManager requests authorization (not shown)
 BLEScanner->>BLEScanner: _scan_task = asyncio.create_task(self._scan_loop())
 
-repeat for each iteration of the scan loop
-    Note over BLEScanner:_scan_task: discovers nearby devices with BleakScanner.discover()
-    for each discovered device do:
+loop for each iteration of the scan loop
+    Note over BLEScanner: Discovers nearby devices with BleakScanner.discover()
+    loop for each discovered device
         BLEScanner->>BLEScanner: processDevice(device)
         BLEScanner->>Database: updateOrInsertDevice(device)
         BLEScanner->>BLEScanner: recordSighting(device, place)
         BLEScanner->>BLEScanner: manageDevicePlaceRelationships(device, place)
         BLEScanner->>BLEScanner: logDeviceInfo(device, place)
     end
-
-    Note over BLEScanner:_scan_task: calls report_places_and_devices() periodically to generate reports
+    BLEScanner->>BLEScanner: report_places_and_devices() periodically
+    BLEScanner->>BLEScanner: sleep for 5 seconds before repeating
 end
-Note over BLEScanner:_scan_task: sleeps for 5 seconds before repeating the scan loop
 ```
 
 Analysis is performed during the scan task.
