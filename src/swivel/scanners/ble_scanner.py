@@ -13,9 +13,9 @@ from bleak import BleakScanner
 from sqlalchemy import select, func, distinct, text
 from sqlalchemy.orm import selectinload
 
-from database.ble_dto import Device, Relocation, Place, PlaceDevice, Seen, Base
-from database.datastorage_json import AsyncSessionLocal, async_engine
-from events.event_subsystem import EventBus
+from swivel.database.ble_dto import Device, Relocation, Place, PlaceDevice, Seen, Base
+from swivel.database.datastorage_json import AsyncSessionLocal, async_engine
+from swivel.events.event_subsystem import EventBus
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # At the top of the file
@@ -142,10 +142,19 @@ class BLEScanner:
                 for device in devices:
                     device_address = device.address
                     device_name = device.name or "Unknown"
-                    advertisement_data = device.metadata.get('advertisement_data', {})
-                    rssi = advertisement_data.rssi if 'rssi' in advertisement_data else device.rssi
-                    uuids = advertisement_data.service_uuids if 'service_uuids' in advertisement_data else device.metadata.get(
-                        'uuids', [])
+                    advertisement_data = device.metadata.get(
+                        "advertisement_data", {}
+                    )
+                    rssi = (
+                        advertisement_data.rssi
+                        if "rssi" in advertisement_data
+                        else device.rssi
+                    )
+                    uuids = (
+                        advertisement_data.service_uuids
+                        if "service_uuids" in advertisement_data
+                        else device.metadata.get("uuids", [])
+                    )
                     gatt_signature = ",".join(uuids) if uuids else None
 
                     try:
@@ -330,17 +339,19 @@ class BLEScanner:
         """Fetch RSSI data for a device from the Seen table."""
         try:
             async with AsyncSessionLocal() as session:
-                result = await session.execute(select(Seen).filter_by(device_id=device_id))
+                result = await session.execute(
+                    select(Seen).filter_by(device_id=device_id)
+                )
                 seen_records = result.scalars().all()
                 return [(seen.timestamp, seen.rssi) for seen in seen_records]
         except Exception as e:
-            logging.error(f"Error fetching RSSI data for device {device_id}: {e}")
+            logging.error(
+                f"Error fetching RSSI data for device {device_id}: {e}"
+            )
             return []
 
     @staticmethod
-    async def _update_place_device(
-            session, place: Place, device: Device
-    ):
+    async def _update_place_device(session, place: Place, device: Device):
         """
         Updates the record for a device seen in a place, increasing the times_seen count.
         :param session: Database session.
@@ -443,8 +454,7 @@ class BLEScanner:
                 result = await session.execute(
                     select(Seen)
                     .options(
-                        selectinload(Seen.device),
-                        selectinload(Seen.place)
+                        selectinload(Seen.device), selectinload(Seen.place)
                     )
                     .filter(Seen.gatt_signature.in_(gatt_subquery))
                 )
@@ -457,10 +467,10 @@ class BLEScanner:
                     place = record.place
                     if device.id not in shared_devices:
                         shared_devices[device.id] = {
-                            'device': device,
-                            'places': []
+                            "device": device,
+                            "places": [],
                         }
-                    shared_devices[device.id]['places'].append(place)
+                    shared_devices[device.id]["places"].append(place)
 
                 return shared_devices
 
@@ -484,8 +494,8 @@ class BLEScanner:
                 shared_devices = {}
                 for device in devices:
                     shared_devices[device.id] = {
-                        'device': device,
-                        'places': [pd.place for pd in device.places]
+                        "device": device,
+                        "places": [pd.place for pd in device.places],
                     }
 
                 return shared_devices
@@ -494,11 +504,8 @@ class BLEScanner:
             logging.error(f"Error fetching shared devices: {e}")
             return {}
 
-
     @staticmethod
-    async def _record_seen(
-            session, device_id, place_id, rssi, gatt_signature
-    ):
+    async def _record_seen(session, device_id, place_id, rssi, gatt_signature):
         """
         Records a 'Seen' entry for the device.
         :param session: Database session.
@@ -542,8 +549,8 @@ class BLEScanner:
 
                 for place in places:
                     place_name = (
-                            place.name
-                            or f"Unnamed Place ({place.latitude}, {place.longitude})"
+                        place.name
+                        or f"Unnamed Place ({place.latitude}, {place.longitude})"
                     )
                     logging.info(f"Place: {place_name}")
                     place_devices = (
@@ -609,8 +616,8 @@ class BLEScanner:
                     places = [pd.place for pd in device.places]
                     for place in places:
                         place_name = (
-                                place.name
-                                or f"Unnamed Place ({place.latitude}, {place.longitude})"
+                            place.name
+                            or f"Unnamed Place ({place.latitude}, {place.longitude})"
                         )
                         logging.info(f"  Seen at place: {place_name}")
         except Exception as e:
@@ -716,8 +723,8 @@ class BLEScanner:
                             device_name = device.name or "Unknown Device"
                             place = record.place
                             place_name = (
-                                    place.name
-                                    or f"Unnamed Place ({place.latitude}, {place.longitude})"
+                                place.name
+                                or f"Unnamed Place ({place.latitude}, {place.longitude})"
                             )
                             logging.info(
                                 f"  Device ID: {device.id}, Name: {device_name}"
@@ -762,10 +769,13 @@ def recreate_db():
         file = "bluetooth_devices.db"
         if os.path.exists(file):
             # pick a random file name
-            random_nanoid = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+            random_nanoid = "".join(
+                random.choices(string.ascii_letters + string.digits, k=8)
+            )
             os.rename(file, f"{file}.bak.{random_nanoid}")
-    
-        from location.location_manager import LocationManager
+
+        from swivel.location.location_manager import LocationManager
+
         event_bus = EventBus()
         location_manager = LocationManager(event_bus)
         location_manager.request_authorization()
@@ -787,7 +797,8 @@ def run_scanner():
     import asyncio
 
     async def run():
-        from location.location_manager import LocationManager
+        from swivel.location.location_manager import LocationManager
+
         logging.info("Starting the BLE scanner application...")
         event_bus = EventBus()
         location_manager = LocationManager(event_bus)

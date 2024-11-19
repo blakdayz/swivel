@@ -1,3 +1,7 @@
+Here is the updated `README.md` file with event bus subscription and usage:
+
+---
+
 # SWIVEL Framework for Mac and Linux
 
 This framework is designed to provide a common interface for accessing various functionalities provided by the underlying operating system. The specific functionalities supported will depend on the particular version of the operating system being used.
@@ -9,36 +13,37 @@ This framework is designed to provide a common interface for accessing various f
 * [Community Support](#community-support))
 * [License](#license))
 
-## How to Use 
+## Purpose and Functionality
 
-1. Install swivel: <code>pip install swivel</code>
-2. Import the SWIVEL library.
+The SWIVEL framework is designed for **Counter Intelligence** purposes, specifically to provide a comprehensive picture of Bluetooth Low Energy (BLE) device behavior and movement. The purpose is mapped to the acronym **S.W.I.V.E.L.**, which represents the following components:
+
+*   **S - Scanning**: The framework includes a `BLEScanner` class that scans for BLE devices, which is the first step in counter intelligence.
+*   **W - Watching**: The `LocationManager` class is responsible for watching and updating the locations of BLE devices.
+*   **I - Identifying**: The `EventBus` class enables identifying and responding to events related to BLE devices, such as when a device is found or a location update occurs.
+*   **V - Verifying**: The `PlaceService` class and `DeviceService` class are responsible for verifying the accuracy of location data.
+*   **E - Evaluating**: The `WiFiService` class evaluates the presence of nearby Wi-Fi networks and provides methods to list available networks.
+*   **L - Linking**: The framework links device information to location data, creating a comprehensive picture of device behavior and movement.
+
+By incorporating these features, the SWIVEL framework provides a robust platform for counter intelligence purposes.
+
+## Event Bus Subscription and Usage
+
+To take full advantage of the SWIVEL framework, you can subscribe to events published by various classes. This allows you to respond to events as they occur, which can be useful for understanding device behavior and movement.
+
+
+**Usage**
+
+To take full advantage of the SWIVEL framework, you can use it in conjunction with other classes and services. Here is an example of how to use the SWIVEL framework:
+
 ```python
-import swivel
+from swivel.scanners.ble_scanner import BLEScanner
 
-3. 
+# Create a new BLEScanner object
+scanner = BLEScanner()
 
-##  Common Problems
-
-###  The following problems may occur when using this framework:
-
-1. **Permission Issues:**
-	* **NoneType in Lat or Long values:** The framework may not be able to access certain functionalities due to system restrictions or permissions. In such cases, <code> Settings->Privacy and Security->Location Services->Python->[Enable]</code>
-
-```python
-2024-11-18 14:13:07,002 - INFO - Requesting 'Always' authorization for location services.
-2024-11-18 14:13:07,002 - INFO - Location services are enabled.
-2024-11-18 14:13:07,003 - INFO - Authorization not determined.
-2024-11-18 14:13:17,038 - WARNING - Timeout exceeded while waiting for location.
-2024-11-18 14:14:13,177 - INFO - Requesting 'Always' authorization for location services.
-2024-11-18 14:14:13,177 - INFO - Location services are enabled.
-2024-11-18 14:14:13,178 - INFO - Location services authorized (Always).
-2024-11-18 14:14:13,781 - INFO - Location updated: Latitude = 36.062653316751934, Longitude = -115.09186781691349
-
-
+# Scan for BLE devices
+devices = scanner.scan()
 ```
-
-
 
 ## Getting Started
 To get started with the SWIVEL Framework
@@ -49,3 +54,5 @@ To get started with the SWIVEL Framework
 
 
 ## Permissions Setup (MacOS Sequoia 15.1)
+
+In order for use to obtain permission and ensure the proper functioning of the LocationManager class, if using this with a python interpreter (ie. <code>python main.py</code>), simply goto System Settings->Privacy and Security->Location Services->Toggle On <code>Python</code>

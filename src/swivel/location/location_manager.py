@@ -12,13 +12,13 @@ from CoreLocation import (
 )
 from Foundation import NSObject, NSRunLoop, NSDefaultRunLoopMode, NSDate
 
-from events.event_subsystem import EventBus
-from services.place_service import PlaceService
-from services.device_service import DeviceService
+from swivel.events.event_subsystem import EventBus
+from swivel.services.place_service import PlaceService
+from swivel.services.device_service import DeviceService
 
 # Set up logging configuration
 logging.basicConfig(
-    filename="ble_snitch.log",
+    filename="swivel-location.log",
     filemode="a",
     format="%(asctime)s - %(levelname)s - %(message)s",
     level=logging.INFO,

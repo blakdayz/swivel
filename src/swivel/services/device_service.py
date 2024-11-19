@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import relationship, Session
-from database.ble_dto import Device
+from swivel.database.ble_dto import Device
 
 
 class DeviceService:

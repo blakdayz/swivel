@@ -24,7 +24,7 @@ class LocationSubscriber:
         logging.info(
             f"Location updated (Subscriber): Latitude = {latitude}, Longitude = {longitude}"
         )
-        # You can add more processing or sending logic here
+
 
 
 class WifiSubscriber:

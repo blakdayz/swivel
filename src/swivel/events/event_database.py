@@ -90,7 +90,7 @@ if __name__ == "__main__":
     from sqlalchemy import create_engine
     from sqlalchemy.orm import Session
 
-    engine = create_engine("sqlite:///rf_siem.db", echo=True)
+    engine = create_engine("sqlite:///event_data.db", echo=True)
 
     Base.metadata.create_all(engine)  # Create all tables in the database
 
